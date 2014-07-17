@@ -33,4 +33,4 @@ I have already written about [localization](localization-notes.html). That post 
 
 Custom reports weren't so difficult, all I had to do was to modify admin templates to put links to the new views (report views). There's the nice [django-adminplus](https://github.com/jsocol/django-adminplus) app which can make it easier but I couldn't use it because I was on django 1.7 and it's not compatible with it.
 
-It's a useful application , If you are going on a camino, do give it a try. Buen Camino!
+Pilgrim Diary is a useful application , If you are going on a camino, do give it a try. Buen Camino!
