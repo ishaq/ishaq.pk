@@ -91,8 +91,8 @@ TRANSLATIONS_PATTERN = "{path}.{lang}.{ext}"
 # (the same way you would do with a (translatable) setting.)
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
-        ("/archive.html", "آرکائیو"),
-        ("/categories/index.html", "ٹیگز"),
+        ("/archive.html", "محفوظ شدہ"),
+        ("/categories/index.html", "ضمرہ جات"),
         ("/rss.xml", "آر ایس ایس"),
     ),
 
@@ -285,7 +285,7 @@ REDIRECTIONS = []
 # And then do a backup, or run `nikola ping` from the `ping`
 # plugin (`nikola install_plugin ping`).
 # To do manual deployment, set it to []
-# DEPLOY_COMMANDS = []
+# DEPLOY_COMMANDS = ["git ftp push --verbose"]
 
 # For user.github.io/organization.github.io pages, the DEPLOY branch
 # MUST be 'master', and 'gh-pages' for other repositories.
@@ -407,7 +407,7 @@ REDIRECTIONS = []
 # }
 
 # Show only teasers in the index pages? Defaults to False.
-# INDEX_TEASERS = False
+INDEX_TEASERS = True
 
 # HTML fragments with the Read more... links.
 # The following tags exist and are replaced for you:
@@ -428,7 +428,7 @@ RSS_READ_MORE_LINK = '<p><a href="{link}">{read_more}…</a> ({min_remaining_rea
 
 # A HTML fragment describing the license, for the sidebar.
 # (translatable)
-LICENSE = ""
+LICENSE = {"ur": '<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="تخلیقی العام انتساب بین الاقوامی اجازہ" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />تمام متن <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">تخلیقی العام انتساب، بین الاقوامی اجازہ</a> کے تحت دستیاب ہے۔ ', "en": '<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.'}
 # I recommend using the Creative Commons' wizard:
 # http://creativecommons.org/choose/
 # LICENSE = """
@@ -439,7 +439,7 @@ LICENSE = ""
 
 # A small copyright notice for the page footer (in HTML).
 # (translatable)
-CONTENT_FOOTER = 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="http://getnikola.com" rel="nofollow">Nikola</a>         {license}'
+CONTENT_FOOTER = {"ur": 'جملہ حقوق محفوظ  &copy; {date}         <a href="mailto:{email}">{author}</a> - بشکریہ         <a href="http://getnikola.com" rel="nofollow">نِکولا</a>         {license}', "en": 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="http://getnikola.com" rel="nofollow">Nikola</a>         {license}'}
 
 # Things that will be passed to CONTENT_FOOTER.format().  This is done
 # for translatability, as dicts are not formattable.  Nikola will
@@ -459,7 +459,7 @@ CONTENT_FOOTER_FORMATS = {
             "email": BLOG_EMAIL,
             "author":BLOG_AUTHOR[DEFAULT_LANG],
             "date": time.gmtime().tm_year,
-            "license": LICENSE
+            "license": '<div><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="تخلیقی العام انتساب بین الاقوامی اجازہ" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />تمام متن <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">تخلیقی العام انتساب، بین الاقوامی اجازہ</a> کے تحت دستیاب ہے۔ </div>'
         }
     ),
     "en": (
@@ -468,7 +468,7 @@ CONTENT_FOOTER_FORMATS = {
             "email": BLOG_EMAIL,
             "author":BLOG_AUTHOR["en"],
             "date": time.gmtime().tm_year,
-            "license": LICENSE
+            "license": '<div><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</div>'
         }
     ),
 }
