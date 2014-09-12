@@ -10,7 +10,7 @@
 
 **TLDR;** [Go to GitHub Project](https://github.com/ishaq/ContactsImporter)
 
-Importing address book contacts is a straight forward task, however most tutorials discussing using `AddressBookUI` framework to interactively let the user select a contact to import. [This GitHub project](https://github.com/ishaq/ContactsImporter) is a proof of concept (POC) to import contacts via direct access to address book using `AddressBook` framework.
+Importing address book contacts is a straight forward task, however most tutorials discuss using `AddressBookUI` framework to interactively let the user select a contact to import. [This GitHub project](https://github.com/ishaq/ContactsImporter) is a proof of concept (POC) to import contacts via direct access to address book using `AddressBook` framework.
 
 Here's the model class I used to represent a single imported contact:
 
@@ -152,7 +152,7 @@ here are the functions that do the job:
     }
 ```
 
-Please note that this code is only a POC and is therefore pretty simple. All it does is:
+Please note that this code is only a POC and is therefore simple. All it does is:
 
 1. import Persons only (not Groups).
 2. For each person, import First Name, Last Name, Birthday (if it exists), all emails and phone numbers and image (if exists).
