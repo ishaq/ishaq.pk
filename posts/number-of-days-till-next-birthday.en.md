@@ -38,4 +38,4 @@ class func daysToNextBirthday(birthdate: NSDate?) -> Int {
     }
 ```
 
-Also available as [gist](https://gist.github.com/e5bbeb0595123d3ca0e7.git)
+Also available as [gist](https://gist.github.com/ishaq/e5bbeb0595123d3ca0e7)
