@@ -42,21 +42,24 @@ class Contact: NSObject {
 }
 ```
 
-here are the functions that do the job:
+here's the `ContactsImporter` class:
 
 ```swift
-    // this is the button handler that triggers contacts import
-    @IBAction func importContacts(sender: AnyObject) {
-        self.requestAccessAndImportContacts()
-    }
-    func extractABAddressBookRef(abRef: Unmanaged<ABAddressBookRef>!) -> ABAddressBookRef? {
+//  ContactsImporter.swift
+
+import AddressBook
+import UIKit
+
+class ContactsImporter {
+
+    private class func extractABAddressBookRef(abRef: Unmanaged<ABAddressBookRef>!) -> ABAddressBookRef? {
         if let ab = abRef {
             return Unmanaged<NSObject>.fromOpaque(ab.toOpaque()).takeUnretainedValue()
         }
         return nil
     }
 
-    func requestAccessAndImportContacts() {
+    class func importContacts(callback: (Array<Contact>) -> Void) {
         if(ABAddressBookGetAuthorizationStatus() == ABAuthorizationStatus.Denied || ABAddressBookGetAuthorizationStatus() == ABAuthorizationStatus.Restricted) {
             let alert = UIAlertView(title: "Address Book Access Denied", message: "Please grant us access to your Address Book in Settings -> Privacy -> Contacts", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
@@ -67,22 +70,21 @@ here are the functions that do the job:
             var addressBook: ABAddressBookRef? = extractABAddressBookRef(ABAddressBookCreateWithOptions(nil, &errorRef))
             ABAddressBookRequestAccessWithCompletion(addressBook, { (accessGranted: Bool, error: CFError!) -> Void in
                 if(accessGranted) {
-                    let contacts = self.importContacts()
-                    self.showContacts(contacts)
+                    let contacts = self.copyContacts()
+                    callback(contacts)
                 }
             })
         }
         else if (ABAddressBookGetAuthorizationStatus() == ABAuthorizationStatus.Authorized) {
-            let contacts = self.importContacts()
-            self.showContacts(contacts)
+            let contacts = self.copyContacts()
+                callback(contacts)
         }
     }
 
-
-    func importContacts() -> Array<Contact> {
+    private class func copyContacts() -> Array<Contact> {
         var errorRef: Unmanaged<CFError>? = nil
         var addressBook: ABAddressBookRef? = extractABAddressBookRef(ABAddressBookCreateWithOptions(nil, &errorRef))
-        var contactsList: NSArray = ABAddressBookCopyArrayOfAllPeople(addressBook).takeRetainedValue()
+        var contactsList: NSArray = ABAddressBookCopyArrayOfAllPeople(addressBook).takeRetainedValue() as NSArray
         println("\(contactsList.count) records in the array")
 
         var importedContacts = Array<Contact>()
@@ -146,10 +148,21 @@ here are the functions that do the job:
         return importedContacts
     }
 
+}
+```
+
+To use this class you call `ContactsImporter.importContacts(showContacts)` where `showContacts` is a function that takes an `Array<Contact>`, like this:
+
+``` swift
+  @IBAction func importContacts(sender: AnyObject) {
+        ContactsImporter.importContacts(showContacts)
+    }
+
     func showContacts(contacts: Array<Contact>) {
         let alertView = UIAlertView(title: "Success!", message: "\(contacts.count) contacts imported successfully", delegate: nil, cancelButtonTitle: "OK")
         alertView.show()
     }
+
 ```
 
 Please note that this code is only a POC and is therefore simple. All it does is:
