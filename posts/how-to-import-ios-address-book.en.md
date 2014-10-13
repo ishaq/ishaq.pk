@@ -10,6 +10,8 @@
 
 **TLDR;** [Go to GitHub Project](https://github.com/ishaq/ContactsImporter)
 
+**UPDATE 2014/10/12:** I have added code to import Contacts from Twitter, Google+ and Facebook in addition to address book.
+
 Importing address book contacts is a straight forward task, however most tutorials discuss using `AddressBookUI` framework to interactively let the user select a contact to import. [This GitHub project](https://github.com/ishaq/ContactsImporter) is a proof of concept (POC) to import contacts via direct access to address book using `AddressBook` framework.
 
 Here's the model class I used to represent a single imported contact:
