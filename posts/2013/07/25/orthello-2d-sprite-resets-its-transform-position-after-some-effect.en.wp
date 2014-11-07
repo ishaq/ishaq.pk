@@ -1,0 +1,24 @@
+<html><body><p>I was using iTween to animate Orthello 2D Sprites, and after animation if I clicked a sprite, it would reset its position back to where it was before iTween's animation.
+
+
+There are two ways to fix this:
+
+
+
+1. Use Orthello 2D's OTTween (which works on OTObject and its subclasses) for <a class="zem_slink" title="Inbetweening" href="http://en.wikipedia.org/wiki/Inbetweening" target="_blank" rel="wikipedia">tweening</a> animations instead of iTween (which uses Unity3d's Transform objects).
+
+
+
+2a. On the particular OTObject, set dirtyChecks to true i.e. something like
+
+</p><pre>myButtonSprite.dirtyChecks = true;</pre>
+
+2b. Set dirtyChecks to true on the OT to turn it on for all Orthello 2D objects i.e.
+
+<pre>OT.dirtyChecks = true;</pre>
+
+This can happen in other cases too e.g. an object moving in response to physics.
+
+
+
+This link was handy in solving the issue: <a href="http://forum.unity3d.com/threads/165566-AnimatedSprite-with-Orthello">http://forum.unity3d.com/threads/165566-AnimatedSprite-with-Orthello</a></body></html>

@@ -166,11 +166,13 @@ POSTS = (
     ("posts/*.rst", "posts", "post.tmpl"),
     ("posts/*.txt", "posts", "post.tmpl"),
     ("posts/*.md", "posts", "post.tmpl"),
+    ("posts/*.wp", "posts", "post.tmpl")
 )
 PAGES = (
     ("stories/*.rst", "stories", "story.tmpl"),
     ("stories/*.txt", "stories", "story.tmpl"),
     ("stories/*.md", "stories", "story.tmpl"),
+    ("stories/*.wp", "storeis", "story.tmpl")
 )
 
 # One or more folders containing files to be copied as-is into the output.
@@ -188,7 +190,7 @@ PAGES = (
 # 'html' assumes the file is html and just copies it
 COMPILERS = {
     "rest": ('.rst', '.txt'),
-    "markdown": ('.md', '.mdown', '.markdown'),
+    "markdown": ('.md', '.mdown', '.markdown', '.wp'),
     "textile": ('.textile',),
     "txt2tags": ('.t2t',),
     "bbcode": ('.bb',),
@@ -277,8 +279,8 @@ SHOW_UNTRANSLATED_POSTS = False
 # relative URL.
 #
 # If you don't need any of these, just set to []
-REDIRECTIONS = []
-
+# REDIRECTIONS = []
+REDIRECTIONS = [["2013/12/30/working-with-yahoo-social-sdk-notes/index.html", "/posts/2013/12/30/working-with-yahoo-social-sdk-notes.html"], ["2013/07/25/orthello-2d-sprite-resets-its-transform-position-after-some-effect/index.html", "/posts/2013/07/25/orthello-2d-sprite-resets-its-transform-position-after-some-effect.html"], ["about/index.html", "/stories/about.html"], ["2013/07/27/two-observations-for-2d-game-dev-in-unity3d/index.html", "/posts/2013/07/27/two-observations-for-2d-game-dev-in-unity3d.html"], ["2013/08/20/ot-touched-or-ot-clicked-doesnt-work-check-register-input/index.html", "/posts/2013/08/20/ot-touched-or-ot-clicked-doesnt-work-check-register-input.html"]]
 # Commands to execute to deploy. Can be anything, for example,
 # you may use rsync:
 # "rsync -rav --delete output/ joe@my.site:/srv/www/site"

@@ -1,0 +1,12 @@
+<html><body><div id="markdown-here-wrapper-759532">
+
+
+This is obvious but I forgot it a few times, hence writing it down. If <code>OT.Touched()</code> or <code>OT.Clicked()</code> don't seem to work, make sure <code>Register Input</code> field is checked. In scripts, it helps to turn it on in the <code>Start()</code> method
+
+<pre><code>sprite.registerInput = true;</code></pre>
+
+these checks (i.e. Touched/Clicked/etc) work in <code>Update()</code> method.
+
+
+
+</div></body></html>

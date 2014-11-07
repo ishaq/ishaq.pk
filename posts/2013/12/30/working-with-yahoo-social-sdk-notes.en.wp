@@ -1,0 +1,37 @@
+<html><body><p style="margin:1.2em 0!important;">Recently I had to do a prototype using Yahoo’s <a href="http://developer.yahoo.com/fantasysports/">Fantasy Sports API</a>. This is a summary of the lessons learnt so that others (and myself) don’t waste time fixing the same things again when working with Yahoo’s APIs.
+My first reaction was to not use Yahoo’s own <a href="https://github.com/yahoo/yos-social-objc">Social SDK</a> because it’s a) ancient, last commit came in 2009 and b)there’s no cocoa pod for it (Cocoa Pods is a dependency management tool for iOS/Mac and if you don’t use it, you really should. Read more about it on <a href="http://cocoapods.org/">http://cocoapods.org/</a>). Yahoo implements OAuth, so I thought it wouldn’t be too hard take a good OAuth impelementation and hook it up. Turned out it was hard. My problems were:</p>
+
+
+
+<ol style="margin:1.2em 0;padding-left:2em;">
+	<li style="margin:.5em 0;">Yahoo’s OAuth is old (pre 2.0), this is less than ideal since there are no good implementations of OAuth1 for <a href="https://github.com/AFNetworking/AFNetworking">AFNetworking</a>. Their extension <a href="https://github.com/AFNetworking/AFOAuth1Client">AFOAuth1Client</a> requires older AFNetworking. I like to stick with the latest versions of the frameworks on new projects so AFOAuth1Client was a no go. There’s <a href="https://github.com/bdbergeron/BDBOAuth1Manager">BDBOAuth1Manager</a> which I tried to patch for Yahoo but didn’t get enough mileage. I was able to call webservice API but apparently their webservices are second class citizens, the returned data was so deeply nested (with no clear structure) that the parsing effort didn’t justify using it. I wasn’t able to call <a href="http://developer.yahoo.com/yql/">YQL API</a> through BDBOAuth1Manager, always returned <code style="font-size:.85em;font-family:Consolas, Inconsolata, Courier, monospace;margin:0 .15em;padding:0 .3em;white-space:pre-wrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;display:inline;"><a class="zem_slink" title="List of HTTP status codes" href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes" target="_blank" rel="wikipedia">400 Bad Request</a></code>.</li>
+	<li style="margin:.5em 0;">Yahoo’s access token expires too soon (1 hour at the time of this writing), their OAuth header names are not the same as what you might expect e.g. <code style="font-size:.85em;font-family:Consolas, Inconsolata, Courier, monospace;margin:0 .15em;padding:0 .3em;white-space:pre-wrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;display:inline;">x_oauth_expires_in</code> instead of <code style="font-size:.85em;font-family:Consolas, Inconsolata, Courier, monospace;margin:0 .15em;padding:0 .3em;white-space:pre-wrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;display:inline;">token_duration</code>. I didn’t try patching BDBOAuth1Manager for access token renewal because I couldn’t call YQL API anyway.</li>
+</ol>
+
+With no clear solution to use YQL API through BDBOAuth1Manager, I decided to use Yahoo’s own SDK. I downloaded the SDK,  put the files in my project, added <code style="font-size:.85em;font-family:Consolas, Inconsolata, Courier, monospace;margin:0 .15em;padding:0 .3em;white-space:pre-wrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;display:inline;">-fno-objc-arc</code> to compile them non-ARC (did I mention yahoo’s SDK was ancient?), compile and run: CRASH
+
+
+
+it was a simple issue though, an <code style="font-size:.85em;font-family:Consolas, Inconsolata, Courier, monospace;margin:0 .15em;padding:0 .3em;white-space:pre-wrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;display:inline;">NSError</code> being over-released, I fixed it. A few hours down the road, I found (and fixed) another issue. App wasn’t expiring (and renewing) the access token.
+
+<p class="markdown-here-wrapper">Later I found <a href="https://github.com/iKorich/yos-social-objc">iKorich’s fork</a> on github, it had the above (and other) issue fixed. Only thing missing was that it wasn’t a cocoa-pod, i turned into one. <a href="https://github.com/ishaq/yos-social-objc">MI-YOSocialSDK</a> is an improved/fixed version of Yahoo Social SDK, it:</p>
+
+
+
+<ol style="margin:1.2em 0;padding-left:2em;">
+	<li style="margin:.5em 0;">has Bug Fixes</li>
+	<li style="margin:.5em 0;">uses modern objective c</li>
+	<li>Compiles with ARC</li>
+</ol>
+
+Thanks to everyone who contributed (contributors are listed in the authors).
+
+<p style="margin:.5em 0!important;"><em>Note to Self:</em> It’s always a good idea to check github forks before fixing something</p>
+
+<p style="margin:.5em 0!important;"><strong>TLDR;</strong> if you are working with yahoo APIs in near future of this post and are in a hurry, use:</p>
+
+
+
+<pre style="margin:.5em 0!important;padding-left:30px;">pod ‘MI-YOSSocialSDK’, ‘~&gt; 1.0.1’</pre>
+
+<p style="margin:.5em 0!important;">instead of going with their own SDK or trying to make an open source OAuth implementation work with their OAuth.</p></body></html>
