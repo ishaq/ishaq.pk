@@ -2,7 +2,7 @@
 .. title: Released on the App Store: PILNAR Pilgrim Diary
 .. slug: released-on-the-app-store-pilnar-pilgrim-diary
 .. date: 2014-07-17 11:17:45 UTC+05:00
-.. tags: App Store, iOS, Releases
+.. tags: App Store, iOS, Releases, Services
 .. link:
 .. description:
 .. type: text
