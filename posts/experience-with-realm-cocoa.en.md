@@ -2,7 +2,7 @@
 .. title: Experience with Realm Cocoa
 .. slug: experience-with-realm-cocoa
 .. date: 2014-12-28 17:11:27 UTC+05:00
-.. tags: iOS, Programming
+.. tags: iOS, Programming, Realm
 .. link:
 .. description:
 .. type: text
